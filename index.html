@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111020">
+<title>Studio AI — Dashboard</title>
+<style>
+:root{--bg:#0b0a14;--panel:#171528;--panel2:#201c3b;--line:#393257;--text:#f5f2ff;--muted:#b5aecf;--teal:#19d6b0;--purple:#7654ff;--pink:#d44cba}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#21153b 0,#0b0a14 46%);color:var(--text);font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}
+.wrap{max-width:850px;margin:auto;padding:14px}.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:5px 0 14px}.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px}.logo{display:grid;place-items:center;width:39px;height:39px;border-radius:12px;background:linear-gradient(135deg,var(--purple),var(--pink));box-shadow:0 0 24px #7654ff44}
+.pill{font-size:11px;border:1px solid #276b61;color:#7cf3d9;background:#10332f;padding:5px 8px;border-radius:20px}
+nav{display:flex;gap:6px;overflow:auto;padding:6px;background:#151323;border:1px solid var(--line);border-radius:15px;margin-bottom:12px}
+nav button{white-space:nowrap;flex:1;background:transparent;color:var(--muted);border:0;border-radius:10px;padding:11px 9px;font-weight:700}
+nav button.active{background:linear-gradient(135deg,#16bfa5,#168b91);color:#fff}
+.card{background:linear-gradient(145deg,#1a1830,#12111e);border:1px solid var(--line);border-radius:16px;padding:15px;margin:11px 0;box-shadow:0 7px 24px #0002}
+h2{font-size:14px;margin:0 0 12px;color:#d4caff;text-transform:uppercase;letter-spacing:.06em}
+label{display:block;color:var(--muted);font-size:12px;margin:12px 0 7px}
+.choices{display:flex;flex-wrap:wrap;gap:7px}.choice{background:#171629;color:#d9d4ed;border:1px solid #494264;border-radius:9px;padding:10px 12px;min-width:60px}.choice.selected{background:#116e75;border-color:#27e0cb;color:white;box-shadow:0 0 14px #19d6b033}
+textarea,input,select{width:100%;background:#0f0e1b;color:var(--text);border:1px solid #494264;border-radius:10px;padding:12px;font:inherit}textarea{min-height:105px;resize:vertical}
+.btn{border:0;border-radius:10px;padding:12px 14px;color:white;font-weight:800;background:linear-gradient(100deg,#10b99a,#187fba);width:100%;margin-top:12px}.btn.secondary{background:linear-gradient(100deg,#6946eb,#a23fc4)}.btn.small{width:auto;margin:0;padding:8px 10px;font-size:12px}
+.note{color:var(--muted);font-size:12px}.status{display:flex;align-items:center;gap:8px;color:#89f1d8;font-size:12px}.dot{width:8px;height:8px;border-radius:50%;background:var(--teal);display:inline-block}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#121120;border:1px solid #302a4d;border-radius:11px;padding:11px;text-align:center}.stat strong{display:block;font-size:18px;color:#d9ccff}.stat span{font-size:11px;color:var(--muted)}
+.task{padding:11px;border:1px solid #393253;border-radius:10px;margin-top:8px;background:#12111f}.taskhead{display:flex;justify-content:space-between;gap:8px}.tag{font-size:11px;color:#8ef0d9}.empty{text-align:center;padding:24px;color:var(--muted)}
+.panel{display:none}.panel.active{display:block}
+footer{text-align:center;color:#817b9c;font-size:11px;padding:15px}
+@media(min-width:650px){.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.grid2 .card{margin:0}.wrap{padding:22px}}
+</style>
+</head>
+<body><main class="wrap">
+<header class="top"><div class="brand"><div class="logo">✦</div><div>Studio AI <div class="note">Dashboard video AI pribadi</div></div></div><span class="pill">MODE DEMO</span></header>
+<nav id="nav"><button class="active" data-tab="studio">🎬 Studio</button><button data-tab="prompts">📝 Prompts</button><button data-tab="accounts">👥 Accounts</button><button data-tab="settings">⚙️ Settings</button><button data-tab="logs">📋 Logs</button></nav>
+<section class="panel active" id="studio">
+<div class="card"><div class="status"><span class="dot"></span> Dashboard siap <span class="note">• belum terhubung ke generator AI</span></div><div class="stats" style="margin-top:12px"><div class="stat"><strong id="count">0</strong><span>Tugas demo</span></div><div class="stat"><strong>0</strong><span>Akun terhubung</span></div><div class="stat"><strong>0</strong><span>Video selesai</span></div></div></div>
+<div class="grid2"><div class="card"><h2>⚡ Durasi video</h2><div class="choices" data-group="duration"><button class="choice" data-value="10 detik">10s</button><button class="choice selected" data-value="15 detik">15s</button><button class="choice" data-value="20 detik">20s</button><button class="choice" data-value="25 detik">25s</button><button class="choice" data-value="30 detik">30s</button><button class="choice" data-value="60 detik">60s</button></div><label>Rasio video</label><div class="choices" data-group="ratio"><button class="choice selected" data-value="9:16">9:16</button><button class="choice" data-value="16:9">16:9</button><button class="choice" data-value="1:1">1:1</button><button class="choice" data-value="4:3">4:3</button></div></div>
+<div class="card"><h2>✨ Prompt video</h2><label for="prompt">Deskripsikan video yang ingin dibuat</label><textarea id="prompt" placeholder="Contoh: Seekor kucing hitam berjalan di gang kampung saat hujan, cinematic, realistic..."></textarea><label for="model">Model (pilih setelah API tersedia)</label><select id="model"><option>Belum terhubung</option><option>Seedance (memerlukan akses API)</option><option>Model video lain (memerlukan akses API)</option></select><button class="btn" id="generate">＋ Tambahkan ke antrean demo</button><p class="note">Tombol ini hanya menyimpan tugas contoh di halaman ini. Belum menghasilkan video sungguhan.</p></div></div>
+<div class="card"><h2>📦 Antrean tugas</h2><div id="tasks" class="empty">Belum ada tugas. Isi prompt lalu tambahkan ke antrean.</div><button class="btn secondary" id="clear">Bersihkan antrean</button></div>
+</section>
+<section class="panel" id="prompts"><div class="card"><h2>📝 Koleksi prompt</h2><p class="note">Simpan template prompt yang sering digunakan. Ketuk untuk memasukkannya ke Studio.</p><div id="presets"></div></div></section>
+<section class="panel" id="accounts"><div class="card"><h2>👥 Accounts</h2><p>Belum ada akun AI yang terhubung.</p><p class="note">Untuk keamanan, jangan menaruh password, cookie, atau token akun di halaman HTML ini. Integrasi API sebaiknya dilakukan lewat backend yang aman.</p></div></section>
+<section class="panel" id="settings"><div class="card"><h2>⚙️ Pengaturan</h2><label>Nama dashboard</label><input id="dashname" value="Studio AI"><label>Jumlah tugas demo per batch</label><select id="batch"><option>1</option><option>3</option><option>5</option><option>10</option></select><button class="btn" id="save">Simpan pengaturan di halaman</button><p class="note" id="saved"></p></div></section>
+<section class="panel" id="logs"><div class="card"><h2>📋 Logs</h2><div id="logslist" class="empty">Belum ada aktivitas.</div></div></section>
+<footer>Template pemula • Antarmuka demo saja • Tidak berafiliasi dengan Bang Ipul Studio, Dola AI, atau Seedance.</footer>
+</main>
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+let tasks=[],logs=[],duration='15 detik',ratio='9:16';
+function log(s){logs.unshift(new Date().toLocaleTimeString('id-ID')+' — '+s);$('#logslist').innerHTML=logs.length?logs.map(x=>`<div class="task">${x}</div>`).join(''):'Belum ada aktivitas.'}
+$('#nav').addEventListener('click',e=>{let b=e.target.closest('button[data-tab]');if(!b)return;$$('#nav button').forEach(x=>x.classList.toggle('active',x===b));$$('.panel').forEach(x=>x.classList.toggle('active',x.id===b.dataset.tab))});
+$$('[data-group]').forEach(group=>group.addEventListener('click',e=>{let b=e.target.closest('button[data-value]');if(!b)return;group.querySelectorAll('button').forEach(x=>x.classList.toggle('selected',x===b));if(group.dataset.group==='duration')duration=b.dataset.value;else ratio=b.dataset.value}));
+function render(){ $('#count').textContent=tasks.length;$('#tasks').className=tasks.length?'':'empty';$('#tasks').innerHTML=tasks.length?tasks.map((t,i)=>`<div class="task"><div class="taskhead"><strong>#${i+1} • ${t.duration} • ${t.ratio}</strong><span class="tag">DEMO / antrean lokal</span></div><p>${t.prompt.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}</p></div>`).join(''):'Belum ada tugas. Isi prompt lalu tambahkan ke antrean.'}
+$('#generate').onclick=()=>{let p=$('#prompt').value.trim();if(!p){alert('Isi prompt terlebih dahulu.');return}tasks.push({prompt:p,duration,ratio});render();log('Tugas demo ditambahkan ke antrean');$('#prompt').value=''};
+$('#clear').onclick=()=>{tasks=[];render();log('Antrean dibersihkan')};
+const examples=['A realistic black cat walking through a quiet Indonesian village alley at dusk, cinematic natural lighting, vertical video.','A tiny cozy street-food stall in Indonesia during gentle rain, steam rising from hot tea, realistic cinematic details.','A mysterious forest path at dawn, thin mist between trees, slow camera movement, no gore, cinematic realism.'];
+$('#presets').innerHTML=examples.map((p,i)=>`<div class="task"><p>${p}</p><button class="btn small secondary" data-preset="${i}">Pakai prompt</button></div>`).join('');
+$('#presets').onclick=e=>{let b=e.target.closest('[data-preset]');if(!b)return;$('#prompt').value=examples[+b.dataset.preset];$$('#nav button').find(x=>x.dataset.tab==='studio').click()};
+$('#save').onclick=()=>{$('.brand').lastElementChild.firstChild.textContent=$('#dashname').value+' ';$('#saved').textContent='Nama dan pilihan batch diterapkan untuk sesi halaman ini.';log('Pengaturan diperbarui')};
+log('Dashboard demo dibuka');render();
+</script></body></html>
